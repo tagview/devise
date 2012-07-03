@@ -14,7 +14,9 @@ Warden::Manager.prepend_after_authentication do |record, warden, options|
     warden.response.set_cookie "remember_#{scope}_token", {
       :value => record.class.serialize_into_cookie(record),
       :expires => record.remember_expires_at,
-      :path => "/"
+      :path => "/",
+      :secure => true,
+      :httponly => true
     }
   end
 end
